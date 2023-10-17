@@ -2,21 +2,24 @@
 @import "footer.css";
 @import "main.css";
 
-@media screen and (max-width: 400px){
-    .media-info-msg{
-        opacity:1;
-    }
-}
 
 .media-info-msg{
     position: absolute;
     top:0;
     left:0;
-    width: 100ww;
-    height: 100wh;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #87CEEB;
-    opacity: 0;
+    background-color: salmon;
+    opacity: 1;
+}
+
+
+
+@media screen and (max-width: 500px)and (min-width: 320px){
+    .media-info-msg{
+        opacity:0;
+    }
 }
