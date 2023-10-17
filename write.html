@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>record your student</title>
+</head>
+<body>
+    <h1>학생 기록</h1>
+    <form id="write-form">
+        <div>
+            <!-- image -->
+            <label for="image">Upload student picture</label>
+            <input type="file" id="image" name="image">
+        </div>
+        
+        <div>
+            <!-- name -->
+            <label for="name">What is the name of this student?</label>
+            <input type="text" id="name" name="name">
+        </div>
+
+        <div>
+            <!-- grade -->
+            <label for="grade">What grade is this student in? </label>
+            <input type="number" id="grade" name="grade">
+        </div>
+        <div>
+            <!-- class -->
+            <label for="class">What class is this student in?</label>
+            <input type="text" id="class" name="class">
+        </div>
+
+        <div>
+            <!-- gender -->
+            <label for="gender">Is this student boy or a girl?</label>
+            <div>
+                <input type="radio" id="gender" name="gender" value="boy"> 
+                boy
+            </div>
+
+            <div>
+                <input type="radio" id="gender" name="gender" value="girl">
+                girl</div>
+        </div>
+        
+        <!-- submit btn -->
+        <div>
+            <button type="submit">submit item</button>
+        </div>
+
+    </form>
+</body>
+</html>
