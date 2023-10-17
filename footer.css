@@ -1,0 +1,35 @@
+footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid #eaeaea ;
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    padding: 10px;
+    background-color: white;
+}
+
+.footer-element{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    text-align: center;
+    margin: auto;
+    cursor: pointer;
+}
+.footer-ele-icon{
+    display: flex;
+    transform: scale(0.8);
+    
+}
+.footer-ele-icon img{
+    width: 40px;
+    margin: auto;
+}
+
+.footer-element:hover{
+    animation: pulse 1000ms cubic-bezier(0.9, 0.7, 0.5, 0.9) infinite;
+}
