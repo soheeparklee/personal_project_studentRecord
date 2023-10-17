@@ -16,6 +16,8 @@ header{
 
 }
 
+
+
 .nice-bar-nice{
     font-size: 20px;
     font-weight: 500;
@@ -42,5 +44,18 @@ header{
 }
 .function-bar-icons img{
     width: 20px;
+    margin: 0 3px;
     
+}
+
+.function-bar-icons img:hover{
+    animation: zoom 2s infinite; 
+}
+
+@keyframes zoom {
+    from{
+        transform: scale(1.3);
+    }to{
+        transform: scale(1);
+    }
 }
