@@ -1,0 +1,44 @@
+main{
+    padding: 20px 0 100px 0;
+    }
+
+    .main-box{
+        display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin: 10px;
+    border-bottom: 1px solid #ededef;
+    }
+   /* student-meta */
+    .main-box-student-meta{
+        display: flex;
+    flex-direction: column;
+    justify-content:start;
+    align-items: start;
+    margin: auto;
+    margin-bottom: 10px;
+    height: 120px;
+    width:70%;
+    flex-basis: auto;
+    padding: 20px 5px 20px 5px;
+    }
+
+    .student-name{
+    margin-bottom: 5px;
+    font-size: 30px;
+    font-weight: 600;
+    }
+
+    .main-box-student-img{
+        margin: 10px;
+    width: 150px;
+    height: 150px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+ 

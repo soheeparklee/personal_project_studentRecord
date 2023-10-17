@@ -17,7 +17,7 @@ header{
 }
 
 .nice-bar-nice{
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 500;
 }
 
@@ -27,12 +27,18 @@ header{
     align-items: center;
     padding: 0 7px 0 7px;
 }
-
+.function-bar-tab{
+    display: flex;
+    border: 1px solid #ededef ;
+}
+.function-bar-tab img{
+    width: 20px;
+    padding: 0 10px 0 0 ;
+}
 .function-bar-title{
     font-size: 15px;
     font-weight: 500;
-    border: 1px solid #ededef ;
-    padding: 5px
+    padding: 10px;
 }
 .function-bar-icons img{
     width: 20px;
