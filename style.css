@@ -1,0 +1,22 @@
+@import "header.css";
+@import "footer.css";
+@import "main.css";
+
+@media screen and (max-width: 400px){
+    .media-info-msg{
+        opacity:1;
+    }
+}
+
+.media-info-msg{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100ww;
+    height: 100wh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #87CEEB;
+    opacity: 0;
+}
