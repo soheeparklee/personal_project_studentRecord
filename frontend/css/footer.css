@@ -43,3 +43,9 @@ footer{
         transform: translateY(0px);
     }
 }
+
+.footer-element-a{
+    display: flex;
+    transform: scale(0.8);
+    text-decoration: none;
+}
