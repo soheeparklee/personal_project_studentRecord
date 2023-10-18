@@ -1,17 +1,30 @@
 from fastapi import FastAPI, UploadFile, Form
 from fastapi.staticfiles import StaticFiles
 from typing import Annotated
+import sqlite3 
+
+con= sqlite3.connect("db.db", check_same_thread=False)
+cur= con.cursor()
 
 app= FastAPI()
 
 @app.post("/students")
-def create_student(image: UploadFile, 
+async def create_student(image: UploadFile, 
                     name: Annotated[str, Form()],
                     grade: Annotated[int, Form()],
                     classroom: Annotated[str, Form()],
                     gender: Annotated[str, Form()]
                     ):
-    print(image, name, grade, classroom, gender)
+    
+    # image
+    image_bytes= await image.read()
+    # 여기는 sqlite 문법임. 
+    # 가져온 데이터를 sqlite db의 표 안에 넣는다. 
+    cur.execute(f"""
+                INSERT INTO items(name, image, grade, classroom, gender)
+                VALUES ("{name}", "{image_bytes.hex()}", "{grade}", "{classroom}", "{gender}")
+                """)
+    con.commit()
     return "200"
 
 
