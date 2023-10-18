@@ -21,8 +21,8 @@ async def create_student(image: UploadFile,
     # 여기는 sqlite 문법임. 
     # 가져온 데이터를 sqlite db의 표 안에 넣는다. 
     cur.execute(f"""
-                INSERT INTO items(name, image, grade, classroom, gender)
-                VALUES ("{name}", "{image_bytes.hex()}", "{grade}", "{classroom}", "{gender}")
+                INSERT INTO student(name, image, grade, classroom, gender)
+                VALUES ("{name}", "{image_bytes.hex()}", {grade}, "{classroom}", "{gender}")
                 """)
     con.commit()
     return "200"
