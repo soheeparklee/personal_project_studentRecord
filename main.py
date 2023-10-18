@@ -13,7 +13,8 @@ async def create_student(image: UploadFile,
                     name: Annotated[str, Form()],
                     grade: Annotated[int, Form()],
                     classroom: Annotated[str, Form()],
-                    gender: Annotated[str, Form()]
+                    gender: Annotated[str, Form()],
+                    insertAt: Annotated[int, Form()]
                     ):
     
     # image
@@ -21,8 +22,8 @@ async def create_student(image: UploadFile,
     # 여기는 sqlite 문법임. 
     # 가져온 데이터를 sqlite db의 표 안에 넣는다. 
     cur.execute(f"""
-                INSERT INTO student(name, image, grade, classroom, gender)
-                VALUES ("{name}", "{image_bytes.hex()}", {grade}, "{classroom}", "{gender}")
+                INSERT INTO student(name, image, grade, classroom, gender, insertAt)
+                VALUES ("{name}", "{image_bytes.hex()}", {grade}, "{classroom}", "{gender}", "{insertAt}")
                 """)
     con.commit()
     return "200"
