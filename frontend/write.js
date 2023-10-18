@@ -2,10 +2,12 @@ const form= document.getElementById("write-form");
 
 const handleSubmitForm= async(event) => {
     event.preventDefault();
+    const body= new FormData(form);
+    body.append("insertAt", new Date().getTime());
     try{
     const res= await fetch("/students", {
     method: "POST",
-    body: new FormData(form)
+    body,
 });
 //backend의 응답 가져오기
 const data= await res.json();
