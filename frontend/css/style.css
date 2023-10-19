@@ -1,6 +1,6 @@
-@import "header.css";
-@import "footer.css";
-@import "main.css";
+@import "./header.css";
+@import "./footer.css";
+@import "./main.css";
 
 
 .media-info-msg{

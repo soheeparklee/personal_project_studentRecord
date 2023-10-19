@@ -19,6 +19,7 @@ footer{
     text-align: center;
     margin: auto;
     cursor: pointer;
+    text-decoration: none;
 }
 .footer-ele-icon{
     display: flex;

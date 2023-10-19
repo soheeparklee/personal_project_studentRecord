@@ -71,4 +71,7 @@ def signup(id: Annotated[str, Form()],
     print(id, password)
     return "200"
 
+
+
+
 app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")
