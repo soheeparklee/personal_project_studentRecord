@@ -7,14 +7,14 @@ const calcTime= (timestamp) =>{
 
     if (hour>0) return `${hour}시간`
     else if (minutes>0) return `${minutes}분`
-    else if(seconds >= 0 ) return `${seconds}초` 
+    else if(seconds = 0 ) return `${seconds}초` 
     else return "방금";  
 
 };
 
 const renderData= (data) => {
     const main= document.querySelector("main");
-    data.reverse().forEach((obj) => {
+    data.reverse().forEach(async(obj) => {
         const mainBoxDiv= document.createElement("div");
         mainBoxDiv.className= "main-box"
         main.appendChild(mainBoxDiv);
@@ -33,14 +33,14 @@ const renderData= (data) => {
         studentMetaDiv.appendChild(metaGrade);
         const metaClass= document.createElement("div");
         metaClass.className= "student-class"
-        metaClass.innerText= obj.class;
+        metaClass.innerText= `${obj.classroom}반`;
         studentMetaDiv.appendChild(metaClass);
         const metaGender= document.createElement("div");
         metaGender.className= "student-gender"
         metaGender.innerText= obj.gender;
         studentMetaDiv.appendChild(metaGender);
 
-        const metaTime= document.createElement("div");
+        let metaTime= document.createElement("div");
         metaTime.className= "student-gender"
         metaTime.innerText= `${calcTime(obj.insertAt)} 전에 등교하였습니다.`;
         studentMetaDiv.appendChild(metaTime);
@@ -48,9 +48,14 @@ const renderData= (data) => {
         const studentImgDiv= document.createElement("div");
         studentImgDiv.className= "main-box-student-img"
         mainBoxDiv.appendChild(studentImgDiv);
+
         const studentImg= document.createElement("img");
-        studentImg.src= "assets/student.svg"
         studentImgDiv.appendChild(studentImg);
+        const res= await fetch(`/images/${obj.id}`)
+        const blob = await res.blob();
+        const url= URL.createObjectURL(blob);
+        studentImg.src= url; 
+        
         
         
     });

@@ -3,8 +3,9 @@ main{
     }
 
     .main-box{
-        display: flex;
-    justify-content: center;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     flex-direction: row;
     margin: 10px;
     border-bottom: 1px solid #ededef;
@@ -30,7 +31,7 @@ main{
     }
 
     .main-box-student-img{
-        margin: 10px;
+    margin: 10px;
     width: 150px;
     height: 150px;
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -39,6 +40,10 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
     }
 
- 
+    .main-box-student-img img{
+        width: 100%;
+        height: 100%;
+    }
