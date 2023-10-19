@@ -1,5 +1,15 @@
 const form= document.querySelector("#signup-form");
 
+const checkPassword= () =>{
+    const formData= new FormData(form);
+    const password1= formData.get("password");
+    const password2= formData.get("password2");
+    if(password1 === password2){
+        return true;
+    }else return false;
+
+}
+
 const handleSubmit= async (event) =>{
     event.preventDefault();
     const formData= new FormData(form);
@@ -7,10 +17,26 @@ const handleSubmit= async (event) =>{
     const sha256Password= sha256(formData.get("password"));
     formData.set("password", sha256Password);
 
-    const res= await fetch("/signup",{
-        method: "POST",
-        body: formData
-    })
+    const checkDiv= document.querySelector("#passwordCheck");
+
+    if (checkPassword()){
+        
+        const res= await fetch("/signup",{
+            method: "POST",
+            body: formData,
+        
+        });
+        const data= await res.json()
+        if(data === "200"){
+            checkDiv.innerText="signup success";
+            checkDiv.style.color= "blue";
+        }
+    }else {
+        checkDiv.innerText= "password does not match";
+        checkDiv.style.color= "red";
+    }
+
+    
 };
 
 form.addEventListener("submit", handleSubmit )
