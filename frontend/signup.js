@@ -28,8 +28,8 @@ const handleSubmit= async (event) =>{
         });
         const data= await res.json()
         if(data === "200"){
-            checkDiv.innerText="signup success";
-            checkDiv.style.color= "blue";
+            alert("교사 인증에 성공했습니다. ")
+            window.location.pathname= "/login.html";
         }
     }else {
         checkDiv.innerText= "password does not match";

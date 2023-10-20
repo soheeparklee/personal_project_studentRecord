@@ -66,10 +66,16 @@ async def get_image(student_id):
 
 @app.post("/signup")
 def signup(id: Annotated[str, Form()],
-            password: Annotated[str, Form()]
+            password: Annotated[str, Form()],
+            name:  Annotated[str, Form()],
+            email:  Annotated[str, Form()]
             ):
-    print(id, password)
-    return "200"
+        cur.execute(f"""
+                    INSERT INTO users (id, name, email, password)
+                    VALUES("{id}", "{name}", "{email}", "{password}")
+                    """)
+        con.commit()
+        return "200"
 
 
 
