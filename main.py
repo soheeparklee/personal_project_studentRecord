@@ -31,18 +31,16 @@ manager= LoginManager(SECRET, "/login")
 
 @manager.user_loader()
 def query_user(data):
-    WHERE_STATEMENTS= f"""
-                        id="{data}"
-                        """
+    WHERE_STATEMENT= f'id="{data}"'
     if type (data) == dict:
-         WHERE_STATEMENTS= f"""
+         WHERE_STATEMENT= f"""
                         id="{data["id"]}"
                         """
          
     con.row_factory= sqlite3.Row
     cur= con.cursor()
     user= cur.execute(f"""
-                    SELECT * from users WHERE {WHERE_STATEMENTS}
+                    SELECT * from users WHERE {WHERE_STATEMENT}
                     """).fetchone()
     return user 
 
@@ -59,9 +57,10 @@ def login(id: Annotated[str, Form()],
     
     # access token
     access_token= manager.create_access_token(data={
-            "sub" :{"id": user['id'],
-            "name": user['name'],
-            "email": user['email']
+            "sub" :{
+                "id": user['id'],
+                "name": user['name'],
+                "email": user['email']
             }
 
     })
