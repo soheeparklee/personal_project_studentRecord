@@ -4,9 +4,14 @@ from typing import Annotated
 import sqlite3 
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
+from fastapi_login import LoginManager
+from fastapi_login.exceptions import InvalidCredentialsException
 
 con= sqlite3.connect("db.db", check_same_thread=False)
 cur= con.cursor()
+
+app= FastAPI()
+
 
 cur.execute(f"""
             CREATE TABLE IF NOT EXISTS student (
@@ -20,7 +25,39 @@ cur.execute(f"""
             );
             """)
 
-app= FastAPI()
+
+SECRET= "studentsaredumb"
+manager= LoginManager(SECRET, "/login") 
+
+@manager.user_loader()
+def query_user(id):
+    con.row_factory= sqlite3.Row
+    cur= con.cursor()
+    user= cur.execute(f"""
+                    SELECT * from users WHERE id="{id}"
+                    """).fetchone()
+    return user 
+
+
+@app.post("/login")
+def login(id: Annotated[str, Form()],
+        password: Annotated[str, Form()]):
+    user= query_user(id)
+    print(user)
+    if not user:
+        raise InvalidCredentialsException
+    elif password != user["password"]:
+        raise InvalidCredentialsException
+    
+    # access token
+    access_token= manager.create_access_token(data={
+            "id": user['id'],
+            "name": user['name'],
+            "email": user['email']
+
+
+    })
+    return {"access_token": access_token} 
 
 @app.post("/students")
 async def create_student(image: UploadFile, 
@@ -71,7 +108,7 @@ def signup(id: Annotated[str, Form()],
             email:  Annotated[str, Form()]
             ):
         cur.execute(f"""
-                    INSERT INTO users (id, name, email, password)
+                    INSERT or IGNORE INTO users (id, name, email, password)
                     VALUES("{id}", "{name}", "{email}", "{password}")
                     """)
         con.commit()
