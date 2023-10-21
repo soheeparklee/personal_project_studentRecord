@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, Form, Response
+from fastapi import FastAPI, UploadFile, Form, Response, Depends
 from fastapi.staticfiles import StaticFiles
 from typing import Annotated
 import sqlite3 
@@ -30,11 +30,19 @@ SECRET= "studentsaredumb"
 manager= LoginManager(SECRET, "/login") 
 
 @manager.user_loader()
-def query_user(id):
+def query_user(data):
+    WHERE_STATEMENTS= f"""
+                        id="{data}"
+                        """
+    if type (data) == dict:
+         WHERE_STATEMENTS= f"""
+                        id="{data["id"]}"
+                        """
+         
     con.row_factory= sqlite3.Row
     cur= con.cursor()
     user= cur.execute(f"""
-                    SELECT * from users WHERE id="{id}"
+                    SELECT * from users WHERE {WHERE_STATEMENTS}
                     """).fetchone()
     return user 
 
@@ -51,10 +59,10 @@ def login(id: Annotated[str, Form()],
     
     # access token
     access_token= manager.create_access_token(data={
-            "id": user['id'],
+            "sub" :{"id": user['id'],
             "name": user['name'],
             "email": user['email']
-
+            }
 
     })
     return {"access_token": access_token} 
@@ -81,7 +89,7 @@ async def create_student(image: UploadFile,
 
 
 @app.get("/students")
-def get_students():
+def get_students(user= Depends(manager)):
     #column names
     con.row_factory= sqlite3.Row
     cur= con.cursor()
