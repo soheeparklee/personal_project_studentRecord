@@ -1,26 +1,53 @@
+<script>
+  import { getDatabase, ref, push } from 'firebase/database';
+  import Footer from '../components/Footer.svelte';
+
+  let name;
+  let grade;
+  let classroom;
+  // let gender;
+
+  function writeUserData() {
+    const db = getDatabase();
+    push(ref(db, 'students/'), {
+      name: name,
+      grade: grade,
+      classroom: classroom,
+      // gender: displayRadio(),
+    });
+    window.location.hash = '/';
+  }
+
+  // function displayRadio() {
+  //   let ele = document.querySelector('#gender');
+  //   for (let i = 0; i < ele.length; i++) {
+  //     if (ele[i].checked) return ele[i].value;
+  //   }
+  // }
+</script>
+
 <h1>학생 기록</h1>
-<form id="write-form">
-  <div>
-    <!-- image -->
+<form id="write-form" on:submit|preventDefault={writeUserData}>
+  <!-- <div>
     <label for="image">Upload student picture</label>
     <input type="file" id="image" name="image" />
-  </div>
+  </div> -->
 
   <div>
     <!-- name -->
     <label for="name">What is the name of this student?</label>
-    <input type="text" id="name" name="name" />
+    <input type="text" id="name" name="name" bind:value={name} />
   </div>
 
   <div>
     <!-- grade -->
     <label for="grade">What grade is this student in? </label>
-    <input type="number" id="grade" name="grade" />
+    <input type="number" id="grade" name="grade" bind:value={grade} />
   </div>
   <div>
     <!-- class -->
     <label for="classroom">What classroom is this student in?</label>
-    <input type="text" id="classroom" name="classroom" />
+    <input type="text" id="classroom" name="classroom" bind:value={classroom} />
   </div>
 
   <div>
@@ -43,31 +70,4 @@
   </div>
 </form>
 
-<footer>
-  <a class="footer-element" href="/">
-    <div class="footer-ele-icon">
-      <img src="assets/main.svg" alt="home-icon" />
-    </div>
-    <div class="footer-ele-name">홈</div>
-  </a>
-  <a class="footer-element" href="/#/signup">
-    <div class="footer-ele-icon">
-      <img src="assets/login.svg" alt="home-icon" />
-    </div>
-    <div class="footer-ele-name">교사 인증</div>
-  </a>
-
-  <a class="footer-element" href="/#/write">
-    <div class="footer-ele-icon">
-      <img src="assets/write.svg" alt="home-icon" />
-    </div>
-    <div class="footer-ele-name">기록하기</div>
-  </a>
-
-  <a class="footer-element" href="/#/login">
-    <div class="footer-ele-icon">
-      <img src="assets/user.svg" alt="home-icon" />
-    </div>
-    <div class="footer-ele-name">선생님 로그인</div>
-  </a>
-</footer>
+<Footer location="write" />

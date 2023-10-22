@@ -24,8 +24,10 @@ footer{
 .footer-ele-icon{
     display: flex;
     transform: scale(0.8);
-    
+    border:none;
+    background-color: white;
 }
+
 .footer-ele-icon img{
     width: 40px;
     margin: auto;
@@ -50,3 +52,4 @@ footer{
     transform: scale(0.8);
     text-decoration: none;
 }
+

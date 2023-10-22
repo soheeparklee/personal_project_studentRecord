@@ -1,4 +1,6 @@
 <script>
+  import Footer from '../components/Footer.svelte';
+
   const now = new Date();
   const hours = now.getHours();
   const minutes = now.getMinutes();
@@ -32,31 +34,4 @@
 
 <main />
 
-<footer>
-  <a class="footer-element" href="/">
-    <div class="footer-ele-icon">
-      <img src="assets/main.svg" alt="home-icon" />
-    </div>
-    <div class="footer-ele-name">홈</div>
-  </a>
-  <a class="footer-element" href="/#/signup">
-    <div class="footer-ele-icon">
-      <img src="assets/login.svg" alt="home-icon" />
-    </div>
-    <div class="footer-ele-name">교사 인증</div>
-  </a>
-
-  <a class="footer-element" href="/#/write">
-    <div class="footer-ele-icon">
-      <img src="assets/write.svg" alt="home-icon" />
-    </div>
-    <div class="footer-ele-name">기록하기</div>
-  </a>
-
-  <a class="footer-element" href="/#/login">
-    <div class="footer-ele-icon">
-      <img src="assets/user.svg" alt="home-icon" />
-    </div>
-    <div class="footer-ele-name">선생님 로그인</div>
-  </a>
-</footer>
+<Footer location="main" />
