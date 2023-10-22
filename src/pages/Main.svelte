@@ -12,13 +12,26 @@
   //get data and post on main page
   const db = getDatabase();
   const studentsRef = ref(db, 'students/');
-
+  //onmount 는 화면이 보여질 떄마다 아래에 있는 함수 호출되어 보이도록
   onMount(() => {
     onValue(studentsRef, (snapshot) => {
       const data = snapshot.val();
-      students = Object.values(data);
+      students = Object.values(data).reverse();
     });
   });
+
+  const calcTime = (timestamp) => {
+    const curTime = new Date().getTime() - 9 * 60 * 60 * 1000;
+    const time = new Date(curTime - timestamp);
+    const hour = time.getHours();
+    const minutes = time.getMinutes();
+    const sec = time.getSeconds();
+
+    if (hour > 0) return `${hour}시간`;
+    else if (minutes > 0) return `${minutes}분`;
+    else if (sec >= 0) return `${sec}초`;
+    else return '방금';
+  };
 </script>
 
 <div class="media-info-msg">화면 사이즈를 조정해 주세요</div>
@@ -54,9 +67,12 @@
         <div class="student-name">{student.name}</div>
         <div class="student-grade">{student.grade}학년</div>
         <div class="student-class">{student.classroom}반</div>
+        <div class="student-gender">
+          {calcTime(student.insertAt)}전에 등교하였습니다.
+        </div>
       </div>
       <div class="main-box-student-img">
-        <img src="" alt="" />
+        <img src={student.imgUrl} alt={student.name} />
       </div>
     </div>
   {/each}

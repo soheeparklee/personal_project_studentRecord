@@ -1,46 +1,59 @@
 <script>
   import { getDatabase, ref, push } from 'firebase/database';
   import Footer from '../components/Footer.svelte';
-  import { getStorage, ref as refImage, uploadBytes } from 'firebase/storage';
+  import {
+    getStorage,
+    ref as refImage,
+    uploadBytes,
+    getDownloadURL,
+  } from 'firebase/storage';
 
   let name;
   let grade;
   let classroom;
-  // let gender;
+  // 'file' comes from the Blob or File API
+  let files;
 
+  const db = getDatabase();
   //get data
-  function writeUserData() {
-    const db = getDatabase();
+  function writeUserData(imgUrl) {
     push(ref(db, 'students/'), {
       name: name,
       grade: grade,
       classroom: classroom,
-      // gender: displayRadio(),
+      insertAt: new Date().getTime(),
+      imgUrl,
     });
     window.location.hash = '/';
   }
-
   //get image
   const storage = getStorage();
 
-  // 'file' comes from the Blob or File API
-
-  //get file
-  let files;
-
   const uploadFile = async () => {
+    //upload file
     const file = files[0];
     const name = file.name;
-    const res = await uploadBytes(refImage(storage, name), file);
+    const imgRef = refImage(storage, name);
+    const res = await uploadBytes(imgRef, file);
+
+    //get file and show on frontend
+    const url = await getDownloadURL(imgRef);
+    return url;
+  };
+
+  const handleSubmit = async () => {
+    const url = await uploadFile();
+    writeUserData(url);
   };
 </script>
 
 <h1>학생 기록</h1>
-<form id="write-form" on:submit|preventDefault={writeUserData}>
+<form id="write-form" on:submit|preventDefault={handleSubmit}>
   <div>
-    <button on:click={uploadFile}>upload student picture</button>
+    <!-- img -->
+    <label for="image">Upload picture of student</label>
+    <input type="file" id="image" name="image" bind:files />
   </div>
-
   <div>
     <!-- name -->
     <label for="name">What is the name of this student?</label>
