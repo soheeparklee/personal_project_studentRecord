@@ -1,12 +1,14 @@
 <script>
   import { getDatabase, ref, push } from 'firebase/database';
   import Footer from '../components/Footer.svelte';
+  import { getStorage, ref as refImage, uploadBytes } from 'firebase/storage';
 
   let name;
   let grade;
   let classroom;
   // let gender;
 
+  //get data
   function writeUserData() {
     const db = getDatabase();
     push(ref(db, 'students/'), {
@@ -18,20 +20,26 @@
     window.location.hash = '/';
   }
 
-  // function displayRadio() {
-  //   let ele = document.querySelector('#gender');
-  //   for (let i = 0; i < ele.length; i++) {
-  //     if (ele[i].checked) return ele[i].value;
-  //   }
-  // }
+  //get image
+  const storage = getStorage();
+
+  // 'file' comes from the Blob or File API
+
+  //get file
+  let files;
+
+  const uploadFile = async () => {
+    const file = files[0];
+    const name = file.name;
+    const res = await uploadBytes(refImage(storage, name), file);
+  };
 </script>
 
 <h1>학생 기록</h1>
 <form id="write-form" on:submit|preventDefault={writeUserData}>
-  <!-- <div>
-    <label for="image">Upload student picture</label>
-    <input type="file" id="image" name="image" />
-  </div> -->
+  <div>
+    <button on:click={uploadFile}>upload student picture</button>
+  </div>
 
   <div>
     <!-- name -->
