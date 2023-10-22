@@ -19,4 +19,4 @@
   <div id="info" />
 </form>
 
-<Footer />
+<Footer location="login" />
