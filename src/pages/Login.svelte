@@ -4,6 +4,7 @@
   import { browserPopupRedirectResolver } from 'firebase/auth';
   //get google popup
   import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+  import { user$ } from '../store';
   const provider = new GoogleAuthProvider();
 
   const auth = getAuth();
@@ -11,13 +12,9 @@
   const loginWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
-      // IdP data available using getAdditionalUserInfo(result)
-      // ...
+      user$.set(user);
     } catch (error) {
       // Handle Errors here.
       console.error(error);
@@ -26,7 +23,11 @@
 </script>
 
 <div>
-  <h1>어서오세요 선생님,</h1>
+  {#if $user$?.displayName}
+    <h1>{$user$} 선생님, 어서오세요</h1>
+  {:else}
+    <h1>선생님, 어서오세요</h1>
+  {/if}
   <h1>로그인 해 주세요.</h1>
 
   <button class="login-btn" on:click={loginWithGoogle}>
