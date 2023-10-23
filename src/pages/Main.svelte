@@ -3,6 +3,8 @@
   import Footer from '../components/Footer.svelte';
   import { getDatabase, ref, onValue } from 'firebase/database';
 
+  //authe
+
   const now = new Date();
   const hours = now.getHours();
   const minutes = now.getMinutes();
