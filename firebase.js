@@ -1,17 +1,17 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import { getStorage } from "firebase/storage";
+import {getAuth} from "firebase/auth"
 
-
-// TODO: Replace the following with your app's Firebase project configuration
-// See: https://firebase.google.com/docs/web/learn-more#config-object
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  // ...
-  // The value of `databaseURL` depends on the location of the database
-    databaseURL: "https://personal-student-record-default-rtdb.asia-southeast1.firebasedatabase.app/",
-    storageBucket: 'gs://personal-student-record.appspot.com'
-  
-  
+  apiKey: "AIzaSyDQpHvQNUY7bkdsmdsBNZHYcge30p23qh4",
+  authDomain: "personal-student-record.firebaseapp.com",
+  databaseURL: "https://personal-student-record-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "personal-student-record",
+  storageBucket: "personal-student-record.appspot.com",
+  messagingSenderId: "1000565429549",
+  appId: "1:1000565429549:web:886cd14e20b8f2b83e2fa4"
 };
 
 // Initialize Firebase
@@ -24,3 +24,5 @@ const database = getDatabase(app);
 
 // Initialize Cloud Storage and get a reference to the service
 const storage = getStorage(app);
+
+const auth= getAuth(app);
